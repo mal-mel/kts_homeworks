@@ -12,7 +12,7 @@ setuptools.setup(
     description="Generate marshmallow schema from dataclass",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/mal-mel/shema_generator",
+    url="https://github.com/mal-mel/kts_homeworks/tree/main/schema_oris",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3.8",

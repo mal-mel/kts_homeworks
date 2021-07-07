@@ -3,7 +3,7 @@ import unittest
 
 from marshmallow.exceptions import ValidationError
 
-from schema_ori.schema_oris import schema
+from schema_oris.schema_oris import schema
 
 
 @schema
