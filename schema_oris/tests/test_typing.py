@@ -54,7 +54,7 @@ country = {
 
 class TestCase(unittest.TestCase):
     def test_base(self):
-        self.assertEqual(Country.Schema().load(country), country)
+        self.assertEqual(Country.Schema().load(country).data, country)
 
 
 if __name__ == '__main__':

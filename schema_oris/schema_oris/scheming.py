@@ -8,17 +8,15 @@ import typing
 
 class _SchemaFieldsMeta(SchemaMeta):
     def __new__(mcs, name, bases, attrs):
-        cls = super().__new__(mcs, name, bases, attrs)
-
         attr_mapper = _AttrMapper()
 
-        schema_dict = cls.__dict__
-        base_annotations = cls._dataclass.__annotations__
-
+        _dataclass = attrs["_dataclass"]
+        base_annotations = _dataclass.__annotations__
         for annotation_name in base_annotations:
-            if attr_class := attr_mapper.get(cls._dataclass, base_annotations[annotation_name]):
-                field_obj = attr_class()
-                schema_dict["_declared_fields"][annotation_name] = field_obj
+            if attr_class := attr_mapper.get(_dataclass, base_annotations[annotation_name]):
+                attrs[annotation_name] = attr_class()
+
+        cls = super().__new__(mcs, _dataclass.__name__, bases, attrs)
 
         return cls
 

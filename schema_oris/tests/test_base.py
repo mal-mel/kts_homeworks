@@ -29,7 +29,7 @@ invalid_data_key = {
 
 class TestCase(unittest.TestCase):
     def test_valid(self):
-        self.assertEqual(Person.Schema().load(valid_data), valid_data)
+        self.assertEqual(Person.Schema().load(valid_data).data, valid_data)
 
     def test_invalid_value(self):
         self.assertRaises(ValidationError, Person.Schema().load, invalid_data_value)
