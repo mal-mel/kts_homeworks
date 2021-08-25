@@ -1,9 +1,68 @@
 version: "3.3"
+
 services:
+
   bot:
     command: python3.8 habr_bot/bot.py
     build:
       context: .
       dockerfile: ./habr_bot/Dockerfile
     environment:
-      API_TOKEN: "TOKEN HERE"
+      API_TOKEN: 'TOKEN HERE'
+
+  postgres:
+    container_name: postgres-habr-bot
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-data:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    container_name: elasticsearch-habr-bot
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  kibana:
+    container_name: kibana-habr-bot
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+
+networks:
+  postgres:
+    driver: bridge
+  elastic:
+    driver: bridge
+
+volumes:
+  elasticsearch-data:
+    driver: local
+  postgres-data:
+    driver: local

@@ -1,0 +1,9 @@
+crawler:
+  url: 'https://habr.com/ru/'
+  workers: 2
+  timeout: 60
+
+elastic:
+  host: 'localhost'
+  port: 9200
+  index: 'articles'
