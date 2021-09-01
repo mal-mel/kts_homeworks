@@ -1,0 +1,8 @@
+rabbit:
+  uri: ''
+  queue: 'signer'
+
+postgre:
+  host: ''
+  port: ''
+  db: ''

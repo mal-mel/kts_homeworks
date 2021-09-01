@@ -2,13 +2,13 @@ version: "3.3"
 
 services:
 
-  bot:
-    command: python3.8 habr_bot/bot.py
-    build:
-      context: .
-      dockerfile: ./habr_bot/Dockerfile
-    environment:
-      API_TOKEN: 'TOKEN HERE'
+#  bot:
+#    command: python3.8 habr_bot/bot.py
+#    build:
+#      context: ./tg_bot/
+#      dockerfile: ./tg_bot/Dockerfile
+#    environment:
+#      API_TOKEN: 'TOKEN HERE'
 
   postgres:
     container_name: postgres-habr-bot

@@ -1,3 +1,11 @@
+import os
+
+
+API_TOKEN = os.getenv("API_TOKEN")
+
+LIMIT_REQUEST = 50
+
+
 LOGGING_LEVEL = "DEBUG"
 
 LOGGER_CONFIG = {
@@ -23,7 +31,7 @@ LOGGER_CONFIG = {
     },
     "loggers": {
         "": {
-            "handlers": ["console"],
+            "handlers": ["console", "file"],
             "level": LOGGING_LEVEL,
             "propagate": False
         }
