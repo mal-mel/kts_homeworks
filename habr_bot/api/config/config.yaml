@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+postgres:
+  host: 'localhost'
+  port: 5432
+  database: habr_bot
+  username: admin
+  password: admin

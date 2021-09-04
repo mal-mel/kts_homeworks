@@ -1,4 +1,0 @@
-elastic:
-  host: 'localhost'
-  port: 9200
-  index: 'articles'

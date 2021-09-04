@@ -21,17 +21,11 @@ LOGGER_CONFIG = {
             "class": "logging.StreamHandler",
             "level": LOGGING_LEVEL,
             "formatter": "verbose"
-        },
-        "file": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "level": LOGGING_LEVEL,
-            "formatter": "verbose",
-            "filename": "crawler.log"
         }
     },
     "loggers": {
         "": {
-            "handlers": ["console", "file"],
+            "handlers": ["console"],
             "level": LOGGING_LEVEL,
             "propagate": False
         }

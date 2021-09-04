@@ -1,0 +1,8 @@
+elastic:
+  host: 'localhost'
+  port: 9200
+  index: 'articles'
+
+admin_api:
+  host: 'localhost'
+  port: 8080

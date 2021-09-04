@@ -6,10 +6,10 @@ import yaml
 import logging.config
 
 from config import API_TOKEN, LOGGER_CONFIG
-from services import ElasticInterface
-from middlewares import ESMiddleware
-
-import handlers
+from tg_bot.services import ElasticInterface
+from tg_bot.services import AdminAPIInterface
+from tg_bot.middlewares import ServicesMiddleware
+from tg_bot import handlers
 
 
 BOT = Bot(token=API_TOKEN)
@@ -32,11 +32,19 @@ def init_es_interface(_cfg: dict) -> ElasticInterface:
                             index=_cfg["elastic"]["index"])
 
 
-def start(es_obj: ElasticInterface):
+def init_admin_api_interface(_cfg: dict) -> AdminAPIInterface:
+    return AdminAPIInterface(host=_cfg["admin_api"]["host"],
+                             port=_cfg["admin_api"]["port"])
+
+
+def start(es_obj: ElasticInterface, admin_api_obj: AdminAPIInterface):
     handlers.base.setup(DP)
     handlers.tags.setup(DP)
 
-    DP.middleware.setup(ESMiddleware(es_obj))
+    DP.middleware.setup(ServicesMiddleware({
+        "es_obj": es_obj,
+        "admin_api_obj": admin_api_obj
+    }))
 
     executor.start_polling(DP, skip_updates=True, on_shutdown=shutdown)
 
@@ -48,9 +56,10 @@ async def shutdown(dp: Dispatcher):
 
 if __name__ == '__main__':
     init_logging()
-    cfg = read_config("config.yaml")
+    cfg = read_config("config/config.yaml")
     if cfg:
         es = init_es_interface(cfg)
-        start(es)
+        admin_api = init_admin_api_interface(cfg)
+        start(es, admin_api)
     else:
         logging.info("can't find config file")
