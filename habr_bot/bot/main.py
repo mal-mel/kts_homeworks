@@ -6,10 +6,10 @@ import yaml
 import logging.config
 
 from config import API_TOKEN, LOGGER_CONFIG
-from tg_bot.services import ElasticInterface
-from tg_bot.services import AdminAPIInterface
-from tg_bot.middlewares import ServicesMiddleware
-from tg_bot import handlers
+from bot.services import ElasticInterface
+from bot.services import AdminAPIInterface
+from bot.middlewares import ServicesMiddleware
+from bot import handlers
 
 
 BOT = Bot(token=API_TOKEN)
@@ -40,6 +40,7 @@ def init_admin_api_interface(_cfg: dict) -> AdminAPIInterface:
 def start(es_obj: ElasticInterface, admin_api_obj: AdminAPIInterface):
     handlers.base.setup(DP)
     handlers.tags.setup(DP)
+    handlers.shedule.setup(DP)
 
     DP.middleware.setup(ServicesMiddleware({
         "es_obj": es_obj,

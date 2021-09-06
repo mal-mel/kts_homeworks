@@ -7,8 +7,14 @@ microsoft kts go python
 ```
 """
 
+CURRENT_TAGS = """
+Твои текущие тэги:
+
+`{tags}`
+"""
+
 MALFORMED_TAGS = """
-Что-то я не понял твой формат :(
+Что-то я не понял твой формат тэгов :(
 """
 
 SUCCESS = """

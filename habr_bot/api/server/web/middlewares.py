@@ -10,16 +10,13 @@ async def error_middleware(request, handler):
     try:
         return await handler(request)
     except Error as e:
-        return web.json_response(
-            {"code": e.code, "description": e.description}, status=e.status
-        )
+        return web.json_response(e.json, status=e.status)
     except web.HTTPException:
         raise
     except Exception as e:
         logging.exception(str(e))
-        return web.json_response(
-            {"code": "internal_error", "description": "Internal error"}, status=500
-        )
+        return web.json_response({"code": "internal_error", "description": "Internal error"},
+                                 status=500)
 
 
 @web.middleware

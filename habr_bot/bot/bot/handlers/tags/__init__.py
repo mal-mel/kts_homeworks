@@ -1,6 +1,6 @@
 from aiogram import Dispatcher
 
-from tg_bot.utils.states import TagsStates
+from bot.utils.states import TagsStates
 
 from .tags import tags_handler, tags_receive_handler
 

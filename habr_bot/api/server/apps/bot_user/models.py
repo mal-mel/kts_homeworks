@@ -6,8 +6,8 @@ class BotUser(db.Model):
 
     id = db.Column(db.Integer(), primary_key=True, unique=True, nullable=False, autoincrement=True)
     user_id = db.Column(db.Integer(), unique=True, nullable=False)
-    chat_id = db.Column(db.Integer(), unique=True, nullable=False)
     username = db.Column(db.Text(), nullable=False)
+    shedule = db.Column(db.Time())
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

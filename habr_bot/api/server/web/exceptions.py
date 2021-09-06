@@ -3,6 +3,14 @@ class Error(Exception):
     code = "internal_error"
     description = "Internal Error"
 
+    @property
+    def json(self) -> dict:
+        return {
+            "status": self.status,
+            "code": self.code,
+            "description": self.description
+        }
+
 
 class AlreadyExists(Error):
     status = 400

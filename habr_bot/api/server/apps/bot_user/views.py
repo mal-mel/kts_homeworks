@@ -1,14 +1,54 @@
 from aiohttp_apispec import json_schema, response_schema
 
 from server.web.view import BaseView
-from server.apps.bot_user.schema import BotUserRegisterRequest, BotUserResponse
+from server.apps.bot_user.schema import (
+    BotUserRegisterRequest,
+    BotUserResponse,
+    BotUser,
+    BotUserSetSheduleRequest,
+    BotUserAddTagsRequest,
+    BotUserAddTagsResponse
+)
 
 
-class BotUserRegisterView(BaseView):
+class RegisterView(BaseView):
     @json_schema(BotUserRegisterRequest.Schema)
     @response_schema(BotUserResponse.Schema)
     async def post(self):
         user_data = self.request["json"]
         return await self.store.bot_user.register_user(user_data.user_id,
-                                                       user_data.chat_id,
                                                        user_data.username)
+
+
+class GetUserView(BaseView):
+    @json_schema(BotUser.Schema)
+    @response_schema(BotUserResponse.Schema)
+    async def post(self):
+        user_data = self.request["json"]
+        return await self.store.bot_user.get_user(user_data.user_id)
+
+
+class SetSheduleView(BaseView):
+    @json_schema(BotUserSetSheduleRequest.Schema)
+    @response_schema(BotUserResponse.Schema)
+    async def post(self):
+        user_data = self.request["json"]
+        return await self.store.bot_user.set_shedule(user_data.user_id,
+                                                     user_data.shedule)
+
+
+class GetTagsView(BaseView):
+    @json_schema(BotUser.Schema)
+    @response_schema(BotUserResponse.Schema)
+    async def post(self):
+        user_data = self.request["json"]
+        return await self.store.bot_user.get_tags(user_data.user_id)
+
+
+class AddTagsView(BaseView):
+    @json_schema(BotUserAddTagsRequest.Schema)
+    @response_schema(BotUserAddTagsResponse.Schema)
+    async def post(self):
+        user_data = self.request["json"]
+        return await self.store.bot_user.add_tags(user_data.user_id,
+                                                  user_data.tags)
