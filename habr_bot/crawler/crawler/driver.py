@@ -17,7 +17,7 @@ class WebDriver:
         self._browser: Optional[Browser] = None
 
     async def init(self, workers_num: int):
-        self._browser = await launch()
+        self._browser = await launch({"headless": False})
         for _ in range(workers_num):
             await self._pages_queue.put(await self._create_page())
 

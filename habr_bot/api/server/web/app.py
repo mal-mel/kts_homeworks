@@ -1,8 +1,18 @@
 from aiohttp import web
 
+from aiohttp_apispec import setup_aiohttp_apispec, validation_middleware
+
 from server.store import Store
 from server.web.middlewares import error_middleware, resp_middleware, auth_mw
 from server.web.urls import setup_urls
+
+
+middlewares = [
+    error_middleware,
+    validation_middleware,
+    resp_middleware,
+    auth_mw
+]
 
 
 def setup_store(app: web.Application):
@@ -12,10 +22,8 @@ def setup_store(app: web.Application):
 
 
 def create_app():
-    from aiohttp_apispec import setup_aiohttp_apispec, validation_middleware
-
     app = web.Application(
-        middlewares=[error_middleware, validation_middleware, resp_middleware, auth_mw]
+        middlewares=middlewares
     )
     setup_store(app)
     setup_urls(app)

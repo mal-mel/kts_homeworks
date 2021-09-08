@@ -13,7 +13,7 @@ EMPTY_SHEDULE = """
 """
 
 CANCEL_SHEDULE = """
-Как хочешь...
+Хорошо, не будем
 """
 
 RECEIVE_SHEDULE = """

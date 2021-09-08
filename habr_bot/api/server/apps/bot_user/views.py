@@ -6,8 +6,8 @@ from server.apps.bot_user.schema import (
     BotUserResponse,
     BotUser,
     BotUserSetSheduleRequest,
-    BotUserAddTagsRequest,
-    BotUserAddTagsResponse
+    BotUserTagsRequest,
+    BotUserTagsResponse
 )
 
 
@@ -39,15 +39,15 @@ class SetSheduleView(BaseView):
 
 class GetTagsView(BaseView):
     @json_schema(BotUser.Schema)
-    @response_schema(BotUserResponse.Schema)
+    @response_schema(BotUserTagsResponse.Schema)
     async def post(self):
         user_data = self.request["json"]
         return await self.store.bot_user.get_tags(user_data.user_id)
 
 
 class AddTagsView(BaseView):
-    @json_schema(BotUserAddTagsRequest.Schema)
-    @response_schema(BotUserAddTagsResponse.Schema)
+    @json_schema(BotUserTagsRequest.Schema)
+    @response_schema(BotUserTagsResponse.Schema)
     async def post(self):
         user_data = self.request["json"]
         return await self.store.bot_user.add_tags(user_data.user_id,

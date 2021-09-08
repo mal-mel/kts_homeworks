@@ -1,5 +1,5 @@
 from datetime import time
-from typing import Type
+from typing import Type, List
 from marshmallow import Schema
 
 from marshmallow_dataclass import dataclass
@@ -35,3 +35,8 @@ class BotUserRegister(BotUserRequest):
 @dataclass
 class BotUserSetShedule(BotUserRequest):
     shedule: time
+
+
+@dataclass
+class BotUserAddTags(BotUserRequest):
+    tags: List[str]

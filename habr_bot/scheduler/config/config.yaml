@@ -1,0 +1,16 @@
+elastic:
+  host: 'localhost'
+  port: 9200
+  index: 'articles'
+
+postgre:
+  host: 'localhost'
+  port: 5432
+  database: 'habr_bot'
+  username: 'admin'
+  password: 'admin'
+
+rabbit:
+  amqp_uri: 'amqp://guest:guest@localhost:5672'
+  queue_from: 'sheduler'
+  queue_to: 'bot'

@@ -18,15 +18,14 @@ class BotUser(db.Model):
         return self._tags
 
     def add_tag(self, tag: 'Tag'):
-        self._tags.add(tag)
-        tag.users.add(self)
+        self._tags.add(tag.title)
 
 
 class Tag(db.Model):
     __tablename__ = "tag"
 
     id = db.Column(db.Integer(), primary_key=True, unique=True, nullable=False, autoincrement=True)
-    title = db.Column(db.String(512), nullable=False)
+    title = db.Column(db.String(512), nullable=False, unique=True)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

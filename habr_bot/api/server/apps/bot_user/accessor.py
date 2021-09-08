@@ -30,12 +30,21 @@ class BotUserAccessor(Accessor):
         return user
 
     @staticmethod
-    async def get_tags(user_id: int):
-        query = BotUser.outerjoin(BotUserXTag).outerjoin(Tag).select()
-        tags = await query.gino.load(BotUser.distinct(BotUser.id).load(add_tag=Tag.distinct(Tag.id))).query.where(BotUser.user_id == user_id).gino.all()
+    async def get_tags(user_id: int) -> BotUser:
+        query = db.text("SELECT title FROM bot_user "
+                        "JOIN bot_user_tag ON id = bot_user_id "
+                        "JOIN tag t on tag_id = t.id "
+                        "WHERE bot_user.user_id = :user_id")
+        tags = await db.all(query, user_id=user_id)
+
         if not tags:
             raise NotFound
-        return tags
+
+        user = await BotUser.query.where(BotUser.user_id == user_id).gino.first()
+        for tag in tags:
+            user.add_tag(tag)
+
+        return user
 
     @staticmethod
     async def add_tags(user_id: int, tags: list) -> BotUser:

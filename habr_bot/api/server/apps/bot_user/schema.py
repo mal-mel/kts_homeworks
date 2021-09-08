@@ -33,10 +33,10 @@ class BotUserSetSheduleRequest(BotUser):
 
 
 @dataclass
-class BotUserAddTagsRequest(BotUser):
+class BotUserTagsRequest(BotUser):
     tags: List[str]
 
 
 @dataclass
-class BotUserAddTagsResponse(BotUser):
+class BotUserTagsResponse(BotUser):
     tags: List[str]

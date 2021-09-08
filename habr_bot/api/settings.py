@@ -2,7 +2,9 @@ import pathlib
 import yaml
 
 BASE_DIR = pathlib.Path(__file__).parent
-config_path = BASE_DIR / "config" / "config.yaml"
+
+dev_config_path = BASE_DIR / "config" / "config.yaml"
+prod_config_path = BASE_DIR / "config" / "prod_config.yaml"
 
 
 def read_config(path: str) -> dict:
@@ -11,4 +13,4 @@ def read_config(path: str) -> dict:
     return parsed_config
 
 
-config = read_config(config_path)
+config = read_config(dev_config_path)
